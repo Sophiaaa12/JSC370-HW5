@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Border Crossings by Region and Mode of Transportation</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">JSC370 Border Traffic</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="regions.html">Regions &amp; Map</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Border Crossings by Region and Mode of
+Transportation</h1>
+
+</div>
+
+
+<div class="plotly html-widget html-fill-item" id="htmlwidget-38d70c90e3a487e210f9" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-38d70c90e3a487e210f9">{"x":{"visdat":{"1d1f1200342c":["function () ","plotlyVisDat"]},"cur_data":"1d1f1200342c","attrs":{"1d1f1200342c":{"x":{},"y":{},"text":{},"hoverinfo":"text+legend","color":{},"colors":"Set2","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"barmode":"group","title":"Border Crossings by Region and Transportation Mode (Log Scale)","xaxis":{"domain":[0,1],"automargin":true,"tickangle":-45,"title":"Region","type":"category","categoryorder":"array","categoryarray":["Atlantic Region","Greater Toronto Area Region","Northern Ontario Region","Pacific Region","Prairie Region","Quebec Region","Southern Ontario Region"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Total Crossings (log scale) by Daily","type":"log"},"legend":{"title":{"text":"<b>Mode<\/b>"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["Atlantic Region","Greater Toronto Area Region","Northern Ontario Region","Pacific Region","Prairie Region","Quebec Region","Southern Ontario Region"],"y":[773102,23130436,927058,10108120,5873266,9526420,74948],"text":["773,102","23,130,436","927,058","10,108,120","5,873,266","9,526,420","74,948"],"hoverinfo":["text+legend","text+legend","text+legend","text+legend","text+legend","text+legend","text+legend"],"type":"bar","name":"Air","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Atlantic Region","Northern Ontario Region","Pacific Region","Prairie Region","Quebec Region","Southern Ontario Region"],"y":[4192035,8145937,19870642,3996722,7920998,32991989],"text":["4,192,035","8,145,937","19,870,642","3,996,722","7,920,998","32,991,989"],"hoverinfo":["text+legend","text+legend","text+legend","text+legend","text+legend","text+legend"],"type":"bar","name":"Land","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Atlantic Region","Greater Toronto Area Region","Northern Ontario Region","Pacific Region","Prairie Region","Quebec Region","Southern Ontario Region"],"y":[477920,28644,141040,2269453,39159,268173,157851],"text":["477,920","28,644","141,040","2,269,453","39,159","268,173","157,851"],"hoverinfo":["text+legend","text+legend","text+legend","text+legend","text+legend","text+legend","text+legend"],"type":"bar","name":"Marine","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Atlantic Region","Northern Ontario Region","Pacific Region","Prairie Region","Quebec Region","Southern Ontario Region"],"y":[689,221,220223,17701,38704,24096],"text":["689","221","220,223","17,701","38,704","24,096"],"hoverinfo":["text+legend","text+legend","text+legend","text+legend","text+legend","text+legend"],"type":"bar","name":"Rail","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><strong>Figure 2.</strong> <em>Trend of Border Crossings by
+Region.</em></p>
+<div id="summary" class="section level1">
+<h1>Summary:</h1>
+<p>The bar chart illustrates total border crossings by region, showing
+Southern Ontario and the Pacific Region as the two most active regions
+and each has over 30 million crossings. The Greater Toronto Area
+follows. In contrast, the Quebec, Prairie, Northern Ontario, and
+Atlantic regions experience progressively fewer crossings, with the
+Atlantic Region having the lowest total volume. The dominance of
+Southern Ontario and the Pacific Region suggests that major urban
+centers and key border points significantly influence travel
+volumes.</p>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-c196b6ecff8e30f4df4a" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c196b6ecff8e30f4df4a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[43.6777,45.5017,43.6777,45.4706,49.0018,42.903,42.314,49.0018,43.0896,42.309,43.1214,42.9991,51.1139,45.008,42.314,45.01,45.0014,49.098,44.269,46.502,49.0367,45.022,48.645,42.9991,53.3097,48.601,45.204,45.322,45.0063,49.0078],[-79.62479999999999,-73.5673,-79.62479999999999,-73.74079999999999,-122.7579,-78.9019,-83.0364,-122.7579,-79.0742,-83.0307,-79.066,-82.405,-114.0194,-73.34399999999999,-83.0364,-73.366,-74.7306,-122.827,-75.931,-84.34690000000001,-122.484,-73.367,-123.426,-82.405,-113.58,-93.413,-67.271,-75.669,-72.09139999999999,-97.22410000000001],[15.800575,12.02672,11.9565625,11.2794325,7.24534625,7.175725,6.32638375,6.21162,5.5514925,5.358755,5.16807875,5.063415,4.85726875,3.34272375,2.833705,2.78069125,2.52769875,2.38727125,2.117265,1.97089875,1.83645,1.6693525,1.496905,1.44858875,1.421025,1.16010125,1.12490125,1.12097,1.0506725,1.00803625],null,null,{"interactive":true,"className":"","stroke":true,"color":"white","weight":1,"opacity":0.5,"fill":true,"fillColor":["#67000D","#CC1A1E","#CE1B1E","#DB2924","#FC8463","#FC8564","#FC9778","#FC9A7B","#FDA88B","#FDAD90","#FDB195","#FDB398","#FCB89D","#FED6C5","#FEE0D2","#FEE1D3","#FEE4D7","#FEE5DA","#FFE8DE","#FFEAE0","#FFECE2","#FFEDE5","#FFEFE8","#FFF0E9","#FFF0E9","#FFF3EE","#FFF4EE","#FFF4EE","#FFF5EF","#FFF5F0"],"fillOpacity":0.8},null,null,null,null,["4971: 12,640,460","8212: 9,621,376","4974: 9,565,250","3961: 9,023,546","8135: 5,796,277","4101: 5,740,580","4531: 5,061,107","8132: 4,969,296","4272: 4,441,194","4521: 4,287,004","4273: 4,134,463","4401: 4,050,732","7011: 3,885,815","3513: 2,674,179","4530: 2,266,964","8173: 2,224,553","4090: 2,022,159","8150: 1,909,817","4560: 1,693,812","4410: 1,576,719","8174: 1,469,160","3281: 1,335,482","8111: 1,197,524","4403: 1,158,871","7023: 1,136,820","4780: 928,081","2110: 899,921","4312: 896,776","3141: 840,538","5021: 806,429"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#FFF5F0 , #FEE4D8 10.0859208497933%, #FCB599 26.986332890289%, #FC7E5D 43.8867449307848%, #F14330 60.7871569712805%, #C3161B 77.6875690117763%, #810511 94.587981052272%, #67000D "],"labels":["2,000,000","4,000,000","6,000,000","8,000,000","10,000,000","12,000,000"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Total Crossings","extra":{"p_1":0.1008592084979328,"p_n":0.9458798105227204},"layerId":null,"className":"info legend","group":null}]}],"setView":[[55,-95],4,[]],"limits":{"lat":[42.309,53.3097],"lng":[-123.426,-67.271]}},"evals":[],"jsHooks":[]}</script>
+<p><strong>Figure 2.</strong> <em>Map of Top 30 Busiest Port
+Crossings.</em></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

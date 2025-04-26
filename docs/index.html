@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Trend of Border Crossings Over Time</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">JSC370 Border Traffic</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="regions.html">Regions &amp; Map</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Trend of Border Crossings Over Time</h1>
+
+</div>
+
+
+<pre><code>## ── Attaching core tidyverse packa
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────
+## ✖ dplyr::filter()  masks stats::filter()
+## ✖ purrr::flatten() masks jsonlite::flatten()
+## ✖ dplyr::lag()     masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+## 
+## Attaching package: &#39;kableExtra&#39;
+## 
+## 
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows
+## 
+## 
+## 
+## Attaching package: &#39;plotly&#39;
+## 
+## 
+## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot
+## 
+## 
+## The following object is masked from &#39;package:httr&#39;:
+## 
+##     config
+## 
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter
+## 
+## 
+## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout
+## 
+## 
+## 
+## Attaching package: &#39;scales&#39;
+## 
+## 
+## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard
+## 
+## 
+## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-93fe09f9a56ceedc6db8" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-93fe09f9a56ceedc6db8">{"x":{"data":[{"x":[17532,17533,17534,17535,17536,17537,17538,17539,17540,17541,17542,17543,17544,17545,17546,17547,17548,17549,17550,17551,17552,17553,17554,17555,17556,17557,17558,17559,17560,17561,17562,17563,17564,17565,17566,17567,17568,17569,17570,17571,17572,17573,17574,17575,17576,17577,17578,17579,17580,17581,17582,17583,17584,17585,17586,17587,17588,17589,17590,17591,17592,17593,17594,17595,17596,17597,17598,17599,17600,17601,17602,17603,17604,17605,17606,17607,17608,17609,17610,17611,17612,17613,17614,17615,17616,17617,17618,17619,17620,17621,17622,17623,17624,17625,17626,17627,17628,17629,17630,17631,17632,17633,17634,17635,17636,17637,17638,17639,17640,17641,17642,17643,17644,17645,17646,17647,17648,17649,17650,17651,17652,17653,17654,17655,17656,17657,17658,17659,17660,17661,17662,17663,17664,17665,17666,17667,17668,17669,17670,17671,17672,17673,17674,17675,17676,17677,17678,17679,17680,17681,17682,17683,17684,17685,17686,17687,17688,17689,17690,17691,17692,17693,17694,17695,17696,17697,17698,17699,17700,17701,17702,17703,17704,17705,17706,17707,17708,17709,17710,17711,17712,17713,17714,17715,17716,17717,17718,17719,17720,17721,17722,17723,17724,17725,17726,17727,17728,17729,17730,17731,17732,17733,17734,17735,17736,17737,17738,17739,17740,17741,17742,17743,17744,17745,17746,17747,17748,17749,17750,17751,17752,17753,17754,17755,17756,17757,17758,17759,17760,17761,17762,17763,17764,17765,17766,17767,17768,17769,17770,17771,17772,17773,17774,17775,17776,17777,17778,17779,17780,17781,17782,17783,17784,17785,17786,17787,17788,17789,17790,17791,17792,17793,17794,17795,17796,17797,17798,17799,17800,17801,17802,17803,17804,17805,17806,17807,17808,17809,17810,17811,17812,17813,17814,17815,17816,17817,17818,17819,17820,17821,17822,17823,17824,17825,17826,17827,17828,17829,17830,17831,17832,17833,17834,17835,17836,17837,17838,17839,17840,17841,17842,17843,17844,17845,17846,17847,17848,17849,17850,17851,17852,17853,17854,17855,17856,17857,17858,17859,17860,17861,17862,17863,17864,17865,17866,17867,17868,17869,17870,17871,17872,17873,17874,17875,17876,17877,17878,17879,17880,17881,17882,17883,17884,17885,17886,17887,17888,17889,17890,17891,17892,17893,17894,17895,17896,17897,17898,17899,17900,17901,17902,17903,17904,17905,17906,17907,17908,17909,17910,17911,17912,17913,17914,17915,17916,17917,17918,17919,17920,17921,17922,17923,17924,17925,17926,17927,17928,17929,17930,17931,17932,17933,17934,17935,17936,17937,17938,17939,17940,17941,17942,17943,17944,17945,17946,17947,17948,17949,17950,17951,17952,17953,17954,17955,17956,17957,17958,17959,17960,17961,17962,17963,17964,17965,17966,17967,17968,17969,17970,17971,17972,17973,17974,17975,17976,17977,17978,17979,17980,17981,17982,17983,17984,17985,17986,17987,17988,17989,17990,17991,17992,17993,17994,17995,17996,17997,17998,17999,18000,18001,18002,18003,18004,18005,18006,18007,18008,18009,18010,18011,18012,18013,18014,18015,18016,18017,18018,18019,18020,18021,18022,18023,18024,18025,18026,18027,18028,18029,18030,18031,18032,18033,18034,18035,18036,18037,18038,18039,18040],"y":[226787,236155,239372,231565,253419,291240,264007,198888,197434,193001,200255,215845,230448,239829,187402,172018,173609,184145,219229,242948,233176,177401,159675,173625,185932,224621,236201,239536,182862,169271,179476,192920,213732,235887,206447,187516,176311,154610,195097,203863,220880,225882,228265,196132,189232,204289,261769,292435,286194,290356,208461,205379,218042,241052,259180,261984,214082,200778,210466,210151,233329,279248,273521,218049,204169,207300,213158,260423,290110,288673,235019,223006,223709,254145,297843,328654,324095,238299,221707,219582,228261,274010,294899,297384,241153,231922,253240,276928,313489,318679,323349,330343,246909,230661,242292,258491,279260,286338,234464,210074,214839,223355,259718,251314,246409,223707,213127,215500,222728,271334,289486,301868,233697,209901,218955,236812,279588,293417,303679,250617,220640,219080,225323,275363,296881,311960,236781,217015,222196,230188,282221,303260,301404,235908,216077,229724,240067,279827,285174,315642,427023,255029,242660,265344,339061,357180,316840,236776,227267,233853,260763,294221,313256,336531,261224,231817,237707,260268,310148,319572,334730,275134,245425,255569,274656,322062,331767,345802,278206,245670,263804,283022,331469,336800,342195,338667,275485,287095,305417,363314,373952,347974,410691,324265,286014,338263,359827,327277,377011,301579,278011,300389,314632,365379,374631,385587,309937,283430,302386,321207,379214,396148,389237,337298,291048,309679,335620,391016,403424,405520,338930,310255,319413,355052,405310,405928,404524,452584,332180,329161,354754,400392,410535,409054,324896,296392,313170,308952,381093,395412,407751,336305,292336,314217,331310,373272,380375,372959,316883,295362,299795,326913,399657,411017,382925,411122,273447,246236,252635,301673,319304,312363,242949,235275,234087,252525,295051,300919,323923,252986,225311,232831,261014,296187,311025,308409,250469,217969,221545,255951,294644,308029,319602,231610,217888,220339,255554,296214,307156,297196,370605,233875,216578,234963,258665,279800,284016,223811,197013,206411,216491,267576,266970,287143,225011,202062,184617,208352,244314,248510,263638,207531,183331,160113,182836,212727,235305,265085,194371,166292,170396,187093,226934,250983,263540,240810,184190,179830,186430,221014,260588,262566,199224,190449,217903,201755,221642,247283,294603,199313,174265,172540,190174,221661,246228,248063,202397,182249,181057,185676,217883,237110,238445,197035,174791,181221,194179,225173,252043,243645,206374,197032,208830,221184,259653,299170,265788,200471,154583,250832,268510,278608,297569,297455,239616,235991,246768,245047,278058,305451,277467,205740,194207,186302,194099,222844,238375,232630,186718,173548,177518,194939,243378,214363,201785,183388,170030,159097,176773,211586,232719,228920,172496,162870,159111,178336,231284,244758,223197,180588,174646,159131,183075,213640,233108,234092,187050,144947,159220,211375,256575,282595,276499,297391,214164,198379,217282,248977,269205,243439,203156,202681,187110,215639,257709,272165,273361,214448,202986,207497,220478,262086,288789,268753,231173,221435,227260,241440,294749,319655,323320,243222,224929,231790,232816,264519,291077,295485,237554,223230,237195,248604,289164,297832,306000,242313,225597,221245,234917,262474,280432,295521,223738,207206,216187,225910,276745,299901,290075,245765,232836,241411,262707,286624,293436,312761,330260,237774,232320,245720,275538,292242,304471,245492,216411,226742,233423,274144,281125,302362,235204,209392,215952,230026,281638,293597,300509,238890,211683,222069,233942,285629,303349,329057,423539,251499,236320,254659,84514],"text":["Date: 2018-01-01<br />Total: 226787","Date: 2018-01-02<br />Total: 236155","Date: 2018-01-03<br />Total: 239372","Date: 2018-01-04<br />Total: 231565","Date: 2018-01-05<br />Total: 253419","Date: 2018-01-06<br />Total: 291240","Date: 2018-01-07<br />Total: 264007","Date: 2018-01-08<br />Total: 198888","Date: 2018-01-09<br />Total: 197434","Date: 2018-01-10<br />Total: 193001","Date: 2018-01-11<br />Total: 200255","Date: 2018-01-12<br />Total: 215845","Date: 2018-01-13<br />Total: 230448","Date: 2018-01-14<br />Total: 239829","Date: 2018-01-15<br />Total: 187402","Date: 2018-01-16<br />Total: 172018","Date: 2018-01-17<br />Total: 173609","Date: 2018-01-18<br />Total: 184145","Date: 2018-01-19<br />Total: 219229","Date: 2018-01-20<br />Total: 242948","Date: 2018-01-21<br />Total: 233176","Date: 2018-01-22<br />Total: 177401","Date: 2018-01-23<br />Total: 159675","Date: 2018-01-24<br />Total: 173625","Date: 2018-01-25<br />Total: 185932","Date: 2018-01-26<br />Total: 224621","Date: 2018-01-27<br />Total: 236201","Date: 2018-01-28<br />Total: 239536","Date: 2018-01-29<br />Total: 182862","Date: 2018-01-30<br />Total: 169271","Date: 2018-01-31<br />Total: 179476","Date: 2018-02-01<br />Total: 192920","Date: 2018-02-02<br />Total: 213732","Date: 2018-02-03<br />Total: 235887","Date: 2018-02-04<br />Total: 206447","Date: 2018-02-05<br />Total: 187516","Date: 2018-02-06<br />Total: 176311","Date: 2018-02-07<br />Total: 154610","Date: 2018-02-08<br />Total: 195097","Date: 2018-02-09<br />Total: 203863","Date: 2018-02-10<br />Total: 220880","Date: 2018-02-11<br />Total: 225882","Date: 2018-02-12<br />Total: 228265","Date: 2018-02-13<br />Total: 196132","Date: 2018-02-14<br />Total: 189232","Date: 2018-02-15<br />Total: 204289","Date: 2018-02-16<br />Total: 261769","Date: 2018-02-17<br />Total: 292435","Date: 2018-02-18<br />Total: 286194","Date: 2018-02-19<br />Total: 290356","Date: 2018-02-20<br />Total: 208461","Date: 2018-02-21<br />Total: 205379","Date: 2018-02-22<br />Total: 218042","Date: 2018-02-23<br />Total: 241052","Date: 2018-02-24<br />Total: 259180","Date: 2018-02-25<br />Total: 261984","Date: 2018-02-26<br />Total: 214082","Date: 2018-02-27<br />Total: 200778","Date: 2018-02-28<br />Total: 210466","Date: 2018-03-01<br />Total: 210151","Date: 2018-03-02<br />Total: 233329","Date: 2018-03-03<br />Total: 279248","Date: 2018-03-04<br />Total: 273521","Date: 2018-03-05<br />Total: 218049","Date: 2018-03-06<br />Total: 204169","Date: 2018-03-07<br />Total: 207300","Date: 2018-03-08<br />Total: 213158","Date: 2018-03-09<br />Total: 260423","Date: 2018-03-10<br />Total: 290110","Date: 2018-03-11<br />Total: 288673","Date: 2018-03-12<br />Total: 235019","Date: 2018-03-13<br />Total: 223006","Date: 2018-03-14<br />Total: 223709","Date: 2018-03-15<br />Total: 254145","Date: 2018-03-16<br />Total: 297843","Date: 2018-03-17<br />Total: 328654","Date: 2018-03-18<br />Total: 324095","Date: 2018-03-19<br />Total: 238299","Date: 2018-03-20<br />Total: 221707","Date: 2018-03-21<br />Total: 219582","Date: 2018-03-22<br />Total: 228261","Date: 2018-03-23<br />Total: 274010","Date: 2018-03-24<br />Total: 294899","Date: 2018-03-25<br />Total: 297384","Date: 2018-03-26<br />Total: 241153","Date: 2018-03-27<br />Total: 231922","Date: 2018-03-28<br />Total: 253240","Date: 2018-03-29<br />Total: 276928","Date: 2018-03-30<br />Total: 313489","Date: 2018-03-31<br />Total: 318679","Date: 2018-04-01<br />Total: 323349","Date: 2018-04-02<br />Total: 330343","Date: 2018-04-03<br />Total: 246909","Date: 2018-04-04<br />Total: 230661","Date: 2018-04-05<br />Total: 242292","Date: 2018-04-06<br />Total: 258491","Date: 2018-04-07<br />Total: 279260","Date: 2018-04-08<br />Total: 286338","Date: 2018-04-09<br />Total: 234464","Date: 2018-04-10<br />Total: 210074","Date: 2018-04-11<br />Total: 214839","Date: 2018-04-12<br />Total: 223355","Date: 2018-04-13<br />Total: 259718","Date: 2018-04-14<br />Total: 251314","Date: 2018-04-15<br />Total: 246409","Date: 2018-04-16<br />Total: 223707","Date: 2018-04-17<br />Total: 213127","Date: 2018-04-18<br />Total: 215500","Date: 2018-04-19<br />Total: 222728","Date: 2018-04-20<br />Total: 271334","Date: 2018-04-21<br />Total: 289486","Date: 2018-04-22<br />Total: 301868","Date: 2018-04-23<br />Total: 233697","Date: 2018-04-24<br />Total: 209901","Date: 2018-04-25<br />Total: 218955","Date: 2018-04-26<br />Total: 236812","Date: 2018-04-27<br />Total: 279588","Date: 2018-04-28<br />Total: 293417","Date: 2018-04-29<br />Total: 303679","Date: 2018-04-30<br />Total: 250617","Date: 2018-05-01<br />Total: 220640","Date: 2018-05-02<br />Total: 219080","Date: 2018-05-03<br />Total: 225323","Date: 2018-05-04<br />Total: 275363","Date: 2018-05-05<br />Total: 296881","Date: 2018-05-06<br />Total: 311960","Date: 2018-05-07<br />Total: 236781","Date: 2018-05-08<br />Total: 217015","Date: 2018-05-09<br />Total: 222196","Date: 2018-05-10<br />Total: 230188","Date: 2018-05-11<br />Total: 282221","Date: 2018-05-12<br />Total: 303260","Date: 2018-05-13<br />Total: 301404","Date: 2018-05-14<br />Total: 235908","Date: 2018-05-15<br />Total: 216077","Date: 2018-05-16<br />Total: 229724","Date: 2018-05-17<br />Total: 240067","Date: 2018-05-18<br />Total: 279827","Date: 2018-05-19<br />Total: 285174","Date: 2018-05-20<br />Total: 315642","Date: 2018-05-21<br />Total: 427023","Date: 2018-05-22<br />Total: 255029","Date: 2018-05-23<br />Total: 242660","Date: 2018-05-24<br />Total: 265344","Date: 2018-05-25<br />Total: 339061","Date: 2018-05-26<br />Total: 357180","Date: 2018-05-27<br />Total: 316840","Date: 2018-05-28<br />Total: 236776","Date: 2018-05-29<br />Total: 227267","Date: 2018-05-30<br />Total: 233853","Date: 2018-05-31<br />Total: 260763","Date: 2018-06-01<br />Total: 294221","Date: 2018-06-02<br />Total: 313256","Date: 2018-06-03<br />Total: 336531","Date: 2018-06-04<br />Total: 261224","Date: 2018-06-05<br />Total: 231817","Date: 2018-06-06<br />Total: 237707","Date: 2018-06-07<br />Total: 260268","Date: 2018-06-08<br />Total: 310148","Date: 2018-06-09<br />Total: 319572","Date: 2018-06-10<br />Total: 334730","Date: 2018-06-11<br />Total: 275134","Date: 2018-06-12<br />Total: 245425","Date: 2018-06-13<br />Total: 255569","Date: 2018-06-14<br />Total: 274656","Date: 2018-06-15<br />Total: 322062","Date: 2018-06-16<br />Total: 331767","Date: 2018-06-17<br />Total: 345802","Date: 2018-06-18<br />Total: 278206","Date: 2018-06-19<br />Total: 245670","Date: 2018-06-20<br />Total: 263804","Date: 2018-06-21<br />Total: 283022","Date: 2018-06-22<br />Total: 331469","Date: 2018-06-23<br />Total: 336800","Date: 2018-06-24<br />Total: 342195","Date: 2018-06-25<br />Total: 338667","Date: 2018-06-26<br />Total: 275485","Date: 2018-06-27<br />Total: 287095","Date: 2018-06-28<br />Total: 305417","Date: 2018-06-29<br />Total: 363314","Date: 2018-06-30<br />Total: 373952","Date: 2018-07-01<br />Total: 347974","Date: 2018-07-02<br />Total: 410691","Date: 2018-07-03<br />Total: 324265","Date: 2018-07-04<br />Total: 286014","Date: 2018-07-05<br />Total: 338263","Date: 2018-07-06<br />Total: 359827","Date: 2018-07-07<br />Total: 327277","Date: 2018-07-08<br />Total: 377011","Date: 2018-07-09<br />Total: 301579","Date: 2018-07-10<br />Total: 278011","Date: 2018-07-11<br />Total: 300389","Date: 2018-07-12<br />Total: 314632","Date: 2018-07-13<br />Total: 365379","Date: 2018-07-14<br />Total: 374631","Date: 2018-07-15<br />Total: 385587","Date: 2018-07-16<br />Total: 309937","Date: 2018-07-17<br />Total: 283430","Date: 2018-07-18<br />Total: 302386","Date: 2018-07-19<br />Total: 321207","Date: 2018-07-20<br />Total: 379214","Date: 2018-07-21<br />Total: 396148","Date: 2018-07-22<br />Total: 389237","Date: 2018-07-23<br />Total: 337298","Date: 2018-07-24<br />Total: 291048","Date: 2018-07-25<br />Total: 309679","Date: 2018-07-26<br />Total: 335620","Date: 2018-07-27<br />Total: 391016","Date: 2018-07-28<br />Total: 403424","Date: 2018-07-29<br />Total: 405520","Date: 2018-07-30<br />Total: 338930","Date: 2018-07-31<br />Total: 310255","Date: 2018-08-01<br />Total: 319413","Date: 2018-08-02<br />Total: 355052","Date: 2018-08-03<br />Total: 405310","Date: 2018-08-04<br />Total: 405928","Date: 2018-08-05<br />Total: 404524","Date: 2018-08-06<br />Total: 452584","Date: 2018-08-07<br />Total: 332180","Date: 2018-08-08<br />Total: 329161","Date: 2018-08-09<br />Total: 354754","Date: 2018-08-10<br />Total: 400392","Date: 2018-08-11<br />Total: 410535","Date: 2018-08-12<br />Total: 409054","Date: 2018-08-13<br />Total: 324896","Date: 2018-08-14<br />Total: 296392","Date: 2018-08-15<br />Total: 313170","Date: 2018-08-16<br />Total: 308952","Date: 2018-08-17<br />Total: 381093","Date: 2018-08-18<br />Total: 395412","Date: 2018-08-19<br />Total: 407751","Date: 2018-08-20<br />Total: 336305","Date: 2018-08-21<br />Total: 292336","Date: 2018-08-22<br />Total: 314217","Date: 2018-08-23<br />Total: 331310","Date: 2018-08-24<br />Total: 373272","Date: 2018-08-25<br />Total: 380375","Date: 2018-08-26<br />Total: 372959","Date: 2018-08-27<br />Total: 316883","Date: 2018-08-28<br />Total: 295362","Date: 2018-08-29<br />Total: 299795","Date: 2018-08-30<br />Total: 326913","Date: 2018-08-31<br />Total: 399657","Date: 2018-09-01<br />Total: 411017","Date: 2018-09-02<br />Total: 382925","Date: 2018-09-03<br />Total: 411122","Date: 2018-09-04<br />Total: 273447","Date: 2018-09-05<br />Total: 246236","Date: 2018-09-06<br />Total: 252635","Date: 2018-09-07<br />Total: 301673","Date: 2018-09-08<br />Total: 319304","Date: 2018-09-09<br />Total: 312363","Date: 2018-09-10<br />Total: 242949","Date: 2018-09-11<br />Total: 235275","Date: 2018-09-12<br />Total: 234087","Date: 2018-09-13<br />Total: 252525","Date: 2018-09-14<br />Total: 295051","Date: 2018-09-15<br />Total: 300919","Date: 2018-09-16<br />Total: 323923","Date: 2018-09-17<br />Total: 252986","Date: 2018-09-18<br />Total: 225311","Date: 2018-09-19<br />Total: 232831","Date: 2018-09-20<br />Total: 261014","Date: 2018-09-21<br />Total: 296187","Date: 2018-09-22<br />Total: 311025","Date: 2018-09-23<br />Total: 308409","Date: 2018-09-24<br />Total: 250469","Date: 2018-09-25<br />Total: 217969","Date: 2018-09-26<br />Total: 221545","Date: 2018-09-27<br />Total: 255951","Date: 2018-09-28<br />Total: 294644","Date: 2018-09-29<br />Total: 308029","Date: 2018-09-30<br />Total: 319602","Date: 2018-10-01<br />Total: 231610","Date: 2018-10-02<br />Total: 217888","Date: 2018-10-03<br />Total: 220339","Date: 2018-10-04<br />Total: 255554","Date: 2018-10-05<br />Total: 296214","Date: 2018-10-06<br />Total: 307156","Date: 2018-10-07<br />Total: 297196","Date: 2018-10-08<br />Total: 370605","Date: 2018-10-09<br />Total: 233875","Date: 2018-10-10<br />Total: 216578","Date: 2018-10-11<br />Total: 234963","Date: 2018-10-12<br />Total: 258665","Date: 2018-10-13<br />Total: 279800","Date: 2018-10-14<br />Total: 284016","Date: 2018-10-15<br />Total: 223811","Date: 2018-10-16<br />Total: 197013","Date: 2018-10-17<br />Total: 206411","Date: 2018-10-18<br />Total: 216491","Date: 2018-10-19<br />Total: 267576","Date: 2018-10-20<br />Total: 266970","Date: 2018-10-21<br />Total: 287143","Date: 2018-10-22<br />Total: 225011","Date: 2018-10-23<br />Total: 202062","Date: 2018-10-24<br />Total: 184617","Date: 2018-10-25<br />Total: 208352","Date: 2018-10-26<br />Total: 244314","Date: 2018-10-27<br />Total: 248510","Date: 2018-10-28<br />Total: 263638","Date: 2018-10-29<br />Total: 207531","Date: 2018-10-30<br />Total: 183331","Date: 2018-10-31<br />Total: 160113","Date: 2018-11-01<br />Total: 182836","Date: 2018-11-02<br />Total: 212727","Date: 2018-11-03<br />Total: 235305","Date: 2018-11-04<br />Total: 265085","Date: 2018-11-05<br />Total: 194371","Date: 2018-11-06<br />Total: 166292","Date: 2018-11-07<br />Total: 170396","Date: 2018-11-08<br />Total: 187093","Date: 2018-11-09<br />Total: 226934","Date: 2018-11-10<br />Total: 250983","Date: 2018-11-11<br />Total: 263540","Date: 2018-11-12<br />Total: 240810","Date: 2018-11-13<br />Total: 184190","Date: 2018-11-14<br />Total: 179830","Date: 2018-11-15<br />Total: 186430","Date: 2018-11-16<br />Total: 221014","Date: 2018-11-17<br />Total: 260588","Date: 2018-11-18<br />Total: 262566","Date: 2018-11-19<br />Total: 199224","Date: 2018-11-20<br />Total: 190449","Date: 2018-11-21<br />Total: 217903","Date: 2018-11-22<br />Total: 201755","Date: 2018-11-23<br />Total: 221642","Date: 2018-11-24<br />Total: 247283","Date: 2018-11-25<br />Total: 294603","Date: 2018-11-26<br />Total: 199313","Date: 2018-11-27<br />Total: 174265","Date: 2018-11-28<br />Total: 172540","Date: 2018-11-29<br />Total: 190174","Date: 2018-11-30<br />Total: 221661","Date: 2018-12-01<br />Total: 246228","Date: 2018-12-02<br />Total: 248063","Date: 2018-12-03<br />Total: 202397","Date: 2018-12-04<br />Total: 182249","Date: 2018-12-05<br />Total: 181057","Date: 2018-12-06<br />Total: 185676","Date: 2018-12-07<br />Total: 217883","Date: 2018-12-08<br />Total: 237110","Date: 2018-12-09<br />Total: 238445","Date: 2018-12-10<br />Total: 197035","Date: 2018-12-11<br />Total: 174791","Date: 2018-12-12<br />Total: 181221","Date: 2018-12-13<br />Total: 194179","Date: 2018-12-14<br />Total: 225173","Date: 2018-12-15<br />Total: 252043","Date: 2018-12-16<br />Total: 243645","Date: 2018-12-17<br />Total: 206374","Date: 2018-12-18<br />Total: 197032","Date: 2018-12-19<br />Total: 208830","Date: 2018-12-20<br />Total: 221184","Date: 2018-12-21<br />Total: 259653","Date: 2018-12-22<br />Total: 299170","Date: 2018-12-23<br />Total: 265788","Date: 2018-12-24<br />Total: 200471","Date: 2018-12-25<br />Total: 154583","Date: 2018-12-26<br />Total: 250832","Date: 2018-12-27<br />Total: 268510","Date: 2018-12-28<br />Total: 278608","Date: 2018-12-29<br />Total: 297569","Date: 2018-12-30<br />Total: 297455","Date: 2018-12-31<br />Total: 239616","Date: 2019-01-01<br />Total: 235991","Date: 2019-01-02<br />Total: 246768","Date: 2019-01-03<br />Total: 245047","Date: 2019-01-04<br />Total: 278058","Date: 2019-01-05<br />Total: 305451","Date: 2019-01-06<br />Total: 277467","Date: 2019-01-07<br />Total: 205740","Date: 2019-01-08<br />Total: 194207","Date: 2019-01-09<br />Total: 186302","Date: 2019-01-10<br />Total: 194099","Date: 2019-01-11<br />Total: 222844","Date: 2019-01-12<br />Total: 238375","Date: 2019-01-13<br />Total: 232630","Date: 2019-01-14<br />Total: 186718","Date: 2019-01-15<br />Total: 173548","Date: 2019-01-16<br />Total: 177518","Date: 2019-01-17<br />Total: 194939","Date: 2019-01-18<br />Total: 243378","Date: 2019-01-19<br />Total: 214363","Date: 2019-01-20<br />Total: 201785","Date: 2019-01-21<br />Total: 183388","Date: 2019-01-22<br />Total: 170030","Date: 2019-01-23<br />Total: 159097","Date: 2019-01-24<br />Total: 176773","Date: 2019-01-25<br />Total: 211586","Date: 2019-01-26<br />Total: 232719","Date: 2019-01-27<br />Total: 228920","Date: 2019-01-28<br />Total: 172496","Date: 2019-01-29<br />Total: 162870","Date: 2019-01-30<br />Total: 159111","Date: 2019-01-31<br />Total: 178336","Date: 2019-02-01<br />Total: 231284","Date: 2019-02-02<br />Total: 244758","Date: 2019-02-03<br />Total: 223197","Date: 2019-02-04<br />Total: 180588","Date: 2019-02-05<br />Total: 174646","Date: 2019-02-06<br />Total: 159131","Date: 2019-02-07<br />Total: 183075","Date: 2019-02-08<br />Total: 213640","Date: 2019-02-09<br />Total: 233108","Date: 2019-02-10<br />Total: 234092","Date: 2019-02-11<br />Total: 187050","Date: 2019-02-12<br />Total: 144947","Date: 2019-02-13<br />Total: 159220","Date: 2019-02-14<br />Total: 211375","Date: 2019-02-15<br />Total: 256575","Date: 2019-02-16<br />Total: 282595","Date: 2019-02-17<br />Total: 276499","Date: 2019-02-18<br />Total: 297391","Date: 2019-02-19<br />Total: 214164","Date: 2019-02-20<br />Total: 198379","Date: 2019-02-21<br />Total: 217282","Date: 2019-02-22<br />Total: 248977","Date: 2019-02-23<br />Total: 269205","Date: 2019-02-24<br />Total: 243439","Date: 2019-02-25<br />Total: 203156","Date: 2019-02-26<br />Total: 202681","Date: 2019-02-27<br />Total: 187110","Date: 2019-02-28<br />Total: 215639","Date: 2019-03-01<br />Total: 257709","Date: 2019-03-02<br />Total: 272165","Date: 2019-03-03<br />Total: 273361","Date: 2019-03-04<br />Total: 214448","Date: 2019-03-05<br />Total: 202986","Date: 2019-03-06<br />Total: 207497","Date: 2019-03-07<br />Total: 220478","Date: 2019-03-08<br />Total: 262086","Date: 2019-03-09<br />Total: 288789","Date: 2019-03-10<br />Total: 268753","Date: 2019-03-11<br />Total: 231173","Date: 2019-03-12<br />Total: 221435","Date: 2019-03-13<br />Total: 227260","Date: 2019-03-14<br />Total: 241440","Date: 2019-03-15<br />Total: 294749","Date: 2019-03-16<br />Total: 319655","Date: 2019-03-17<br />Total: 323320","Date: 2019-03-18<br />Total: 243222","Date: 2019-03-19<br />Total: 224929","Date: 2019-03-20<br />Total: 231790","Date: 2019-03-21<br />Total: 232816","Date: 2019-03-22<br />Total: 264519","Date: 2019-03-23<br />Total: 291077","Date: 2019-03-24<br />Total: 295485","Date: 2019-03-25<br />Total: 237554","Date: 2019-03-26<br />Total: 223230","Date: 2019-03-27<br />Total: 237195","Date: 2019-03-28<br />Total: 248604","Date: 2019-03-29<br />Total: 289164","Date: 2019-03-30<br />Total: 297832","Date: 2019-03-31<br />Total: 306000","Date: 2019-04-01<br />Total: 242313","Date: 2019-04-02<br />Total: 225597","Date: 2019-04-03<br />Total: 221245","Date: 2019-04-04<br />Total: 234917","Date: 2019-04-05<br />Total: 262474","Date: 2019-04-06<br />Total: 280432","Date: 2019-04-07<br />Total: 295521","Date: 2019-04-08<br />Total: 223738","Date: 2019-04-09<br />Total: 207206","Date: 2019-04-10<br />Total: 216187","Date: 2019-04-11<br />Total: 225910","Date: 2019-04-12<br />Total: 276745","Date: 2019-04-13<br />Total: 299901","Date: 2019-04-14<br />Total: 290075","Date: 2019-04-15<br />Total: 245765","Date: 2019-04-16<br />Total: 232836","Date: 2019-04-17<br />Total: 241411","Date: 2019-04-18<br />Total: 262707","Date: 2019-04-19<br />Total: 286624","Date: 2019-04-20<br />Total: 293436","Date: 2019-04-21<br />Total: 312761","Date: 2019-04-22<br />Total: 330260","Date: 2019-04-23<br />Total: 237774","Date: 2019-04-24<br />Total: 232320","Date: 2019-04-25<br />Total: 245720","Date: 2019-04-26<br />Total: 275538","Date: 2019-04-27<br />Total: 292242","Date: 2019-04-28<br />Total: 304471","Date: 2019-04-29<br />Total: 245492","Date: 2019-04-30<br />Total: 216411","Date: 2019-05-01<br />Total: 226742","Date: 2019-05-02<br />Total: 233423","Date: 2019-05-03<br />Total: 274144","Date: 2019-05-04<br />Total: 281125","Date: 2019-05-05<br />Total: 302362","Date: 2019-05-06<br />Total: 235204","Date: 2019-05-07<br />Total: 209392","Date: 2019-05-08<br />Total: 215952","Date: 2019-05-09<br />Total: 230026","Date: 2019-05-10<br />Total: 281638","Date: 2019-05-11<br />Total: 293597","Date: 2019-05-12<br />Total: 300509","Date: 2019-05-13<br />Total: 238890","Date: 2019-05-14<br />Total: 211683","Date: 2019-05-15<br />Total: 222069","Date: 2019-05-16<br />Total: 233942","Date: 2019-05-17<br />Total: 285629","Date: 2019-05-18<br />Total: 303349","Date: 2019-05-19<br />Total: 329057","Date: 2019-05-20<br />Total: 423539","Date: 2019-05-21<br />Total: 251499","Date: 2019-05-22<br />Total: 236320","Date: 2019-05-23<br />Total: 254659","Date: 2019-05-24<br />Total:  84514"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(70,130,180,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826498,"l":54.794520547945211},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Trend of Border Crossings Over Time (2018–2019)","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17506.599999999999,18065.400000000001],"tickmode":"array","ticktext":["2018-01","2018-07","2019-01"],"tickvals":[17532,17713,17897],"categoryorder":"array","categoryarray":["2018-01","2018-07","2019-01"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Date","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[66110.5,470987.5],"tickmode":"array","ticktext":["1e+05","2e+05","3e+05","4e+05"],"tickvals":[100000,200000,300000,400000],"categoryorder":"array","categoryarray":["1e+05","2e+05","3e+05","4e+05"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Total Crossings by Daily","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1d1f10c92052":{"x":{},"y":{},"type":"scatter"}},"cur_data":"1d1f10c92052","visdat":{"1d1f10c92052":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><strong>Figure 1.</strong> <em>Trend of Border Crossings Over Time
+(2018–2019), by Day.</em></p>
+<div id="summary" class="section level1">
+<h1>Summary:</h1>
+<p>The time series plot of total border crossings from 2018 to 2019
+exhibits clear seasonal patterns, with periodic fluctuations suggesting
+weekly or monthly cycles. The overall trend shows a steady increase in
+border crossings, particularly during mid-2018, followed by a temporary
+decline. Notably, peaks occur around mid-year, likely due to increased
+summer travel, while crossings drop during winter months, reflecting
+seasonal slowdowns. A sharp drop near the end of 2019 may indicate an
+external event affecting crossings. The fluctuations throughout the
+period reinforce the seasonal nature of border traffic, likely
+influenced by holidays, tourism, and economic cycles. These findings
+support the hypothesis that seasonal and regional factors play a
+significant role in shaping border crossing trends.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

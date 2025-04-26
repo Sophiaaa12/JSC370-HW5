@@ -1,0 +1,9 @@
+name: "JSC370 HW5"
+output_dir: "docs"
+navbar:
+  title: "JSC370 Border Traffic"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Regions & Map"
+      href: regions.html

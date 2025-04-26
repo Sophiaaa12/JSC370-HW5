@@ -1,0 +1,33 @@
+---
+title: "Trend of Border Crossings Over Time"
+output: html_document
+---
+```{r echo=FALSE}
+source("data_prep.R")
+library(dplyr)
+library(plotly)
+library(ggplot2)
+library(scales)
+```
+
+```{r echo=FALSE}
+df_date <- df_1 %>%
+  mutate(Date = as.Date(Date)) %>%
+  group_by(Date) %>%
+  summarise(Total = sum(`Sum of Volume`, na.rm = TRUE), .groups="drop")
+
+# build ggplot and convert
+p1 <- ggplot(df_date, aes(x = Date, y = Total)) +
+  geom_line(color = "steelblue") +
+  labs(
+    title = "Trend of Border Crossings Over Time (2018–2019)",
+    x = "Date", y = "Total Crossings by Daily"
+  ) +
+  theme_minimal()
+ggplotly(p1, tooltip = c("x", "y"))
+
+```
+**Figure 1.** _Trend of Border Crossings Over Time (2018–2019), by Day._ 
+
+# Summary:
+The time series plot of total border crossings from 2018 to 2019 exhibits clear seasonal patterns, with periodic fluctuations suggesting weekly or monthly cycles. The overall trend shows a steady increase in border crossings, particularly during mid-2018, followed by a temporary decline. Notably, peaks occur around mid-year, likely due to increased summer travel, while crossings drop during winter months, reflecting seasonal slowdowns. A sharp drop near the end of 2019 may indicate an external event affecting crossings. The fluctuations throughout the period reinforce the seasonal nature of border traffic, likely influenced by holidays, tourism, and economic cycles. These findings support the hypothesis that seasonal and regional factors play a significant role in shaping border crossing trends.
