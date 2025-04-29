@@ -1,9 +1,9 @@
 name: "JSC370 HW5"
 output_dir: "docs"
 navbar:
-  title: "JSC370 Border Traffic"
+  title: "JSC370 Border Traffic - HW5"
   left:
-    - text: "Home"
+    - text: "Trends in Border Crossings"
       href: index.html
-    - text: "Regions & Map"
-      href: regions.html
+    - text: "Map"
+      href: map.html

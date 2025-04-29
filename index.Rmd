@@ -1,33 +1,84 @@
 ---
-title: "Trend of Border Crossings Over Time"
+title: "Trends of Border Crossings"
 output: html_document
 ---
-```{r echo=FALSE}
+```{r include=FALSE}
 source("data_prep.R")
 library(dplyr)
 library(plotly)
 library(ggplot2)
 library(scales)
 ```
-
-```{r echo=FALSE}
+## Canada Border Crossings Trend {.tabset}
+### Trend By Day
+```{r fig.cap="Figure 1: Trend of Border Crossings Over Time (Canada)", echo=FALSE}
+library(plotly)
 df_date <- df_1 %>%
   mutate(Date = as.Date(Date)) %>%
   group_by(Date) %>%
   summarise(Total = sum(`Sum of Volume`, na.rm = TRUE), .groups="drop")
 
-# build ggplot and convert
 p1 <- ggplot(df_date, aes(x = Date, y = Total)) +
   geom_line(color = "steelblue") +
   labs(
     title = "Trend of Border Crossings Over Time (2018–2019)",
-    x = "Date", y = "Total Crossings by Daily"
+    x = "Date", y = "Total Crossings by Day"
   ) +
   theme_minimal()
 ggplotly(p1, tooltip = c("x", "y"))
-
 ```
-**Figure 1.** _Trend of Border Crossings Over Time (2018–2019), by Day._ 
+
+### Trend by Region
+```{r fig.cap="Figure 2: Trend of Border Crossings by Region", echo=FALSE}
+library(plotly)
+# totals by region
+df_region <- df_1 %>%
+  group_by(Region) %>%
+  summarise(Total = sum(`Sum of Volume`, na.rm = TRUE), .groups="drop") %>%
+  arrange(desc(Total))
+
+p2 <- ggplot(df_region, aes(x = reorder(Region, -Total), y = Total, text = paste0(Region, ": ", scales::comma(Total)))) +
+  geom_col(fill = "orange") +
+  labs(
+    title = "Total Border Crossings by Region",
+    x = "Region", y = "Total Crossings by Day"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggplotly(p2, tooltip = "text")
+```
+
+### Trend by Transportation Mode
+```{r fig.cap="Figure 3: Trend of Border Crossings by Transportation Mode (Log Scale to show trends more obviously)",echo=FALSE}
+library(dplyr)
+library(plotly)
+
+df_mode <- df_1 %>%
+  mutate(Date = as.Date(Date)) %>%
+  group_by(Date, Mode) %>%
+  summarise(Total = sum(`Sum of Volume`, na.rm = TRUE), .groups="drop")
+
+plot_ly(
+  df_mode,
+  x = ~Date,
+  y = ~Total,
+  color = ~Mode,
+  colors = "Dark2",
+  type = "scatter",
+  mode = "lines",
+  hoverinfo = "x+y+name"
+) %>%
+  layout(
+    title = "Daily Border Crossings by Transportation Mode (Log Scale)",
+    xaxis = list(title = "Date"),
+    yaxis = list(type = "log", title = "Total Crossings by Day (log scale)"),
+    legend = list(title = list(text = "<b>Mode</b>"))
+  )
+```
 
 # Summary:
-The time series plot of total border crossings from 2018 to 2019 exhibits clear seasonal patterns, with periodic fluctuations suggesting weekly or monthly cycles. The overall trend shows a steady increase in border crossings, particularly during mid-2018, followed by a temporary decline. Notably, peaks occur around mid-year, likely due to increased summer travel, while crossings drop during winter months, reflecting seasonal slowdowns. A sharp drop near the end of 2019 may indicate an external event affecting crossings. The fluctuations throughout the period reinforce the seasonal nature of border traffic, likely influenced by holidays, tourism, and economic cycles. These findings support the hypothesis that seasonal and regional factors play a significant role in shaping border crossing trends.
+The daily trend of border crossings into Canada from January 2018 to December 2019 is illustrated in Figure 1 on the website under Home page. The interactive line graph reveals strong seasonal patterns, with prominent peaks during the summer months and declines during winter periods in both years. It is clear to show that total crossings by day increase from 2018-01 to 2018-08, and start to decline afterwards, reaching bottom value in 2019-01. Then, another similar pattern appears in the next year which increases from 2019-01 to 2019-08 and decline again.
+
+After exploring the whole trend over time, we put attention into regional effects. Figure 2 on the website under Home page uses an interactive bar graph to show the total border crossings by Canadian region over the same period. From the graph, we easily find that Southern Ontario and the Pacific Region has the largest number of total daily crossings, where each over 40 million. Conversely, Atlantic region will have the lowest total daily crossing volumes. 
+
+For the factor of transportation mode, I plot an Interactive line graphs showing the distribution of border crossings by transportation mode as shown in Figure 3 on the website under Home page. We can easily see that land crossings dominate through the two-year range, and air dominate following, while marine and rail will contribute less.

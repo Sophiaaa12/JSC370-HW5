@@ -1,33 +1,20 @@
-library(httr)
+library(here)
+library(data.table)
 library(jsonlite)
-library(tidyverse)
-library(kableExtra)
-# Define the CKAN Data API endpoint
-api_url = "https://open.canada.ca/data/en/api/3/action/datastore_search"
+library(lubridate)
 
-# Specify the Resource ID of the dataset
-resource_id = "22653cdd-d1e2-4c04-9d11-61b5cdd79b4e"
+here::i_am("data_prep.R")
 
-# Initialize an empty dataframe
-df_1 = data.frame()
+canada_csv  <- here("data", "canada_border_data.csv")
+usa_url <- "https://data.bts.gov/resource/keg4-3bc2.json?$limit=500000"
 
-# Set batch size
-batch_size = 1000  # Adjust batch size if needed
-offset = 0  # Start at record 0
+df_1 <- fread(canada_csv)
 
-# Fetch data iteratively
-repeat {
-  response = GET(api_url, query = list(resource_id = resource_id, limit = batch_size, offset = offset))
-  data = content(response, "text") %>% fromJSON(flatten = TRUE)
-  
-  # Extract records and bind to df
-  new_data = as.data.frame(data$result$records)
-  
-  # Stop if no new data is returned
-  if (nrow(new_data) == 0) break
-  
-  df_1 = bind_rows(df_1, new_data)
-  
-  # Update offset for next batch
-  offset = offset + batch_size
-}
+df_1[, PortCode := as.integer(sub(" -.*$", "", `Port of Entry`))]
+
+df_1[, Date := ymd(Date)]
+
+date_min <- as.Date("2018-01-01")
+date_max <- as.Date("2019-12-31")
+
+df_1  <- df_1[ Date >= date_min & Date <= date_max ]
