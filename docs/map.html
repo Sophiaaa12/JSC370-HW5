@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Regional Concentration (Canada)</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">JSC370 Border Traffic - HW5</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Trends in Border Crossings</a>
+</li>
+<li>
+  <a href="map.html">Map</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Regional Concentration (Canada)</h1>
+
+</div>
+
+
+<div class="figure">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-952419945d33862345ab" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-952419945d33862345ab">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[43.6777,45.5017,43.6777,45.4706,42.903,49.0018,42.314,49.0018,43.0896,42.309,43.1214,42.9991,51.1139,45.008,42.314,45.01,45.0014,49.098,44.269,46.502,49.0367,48.645,45.022,42.9991,53.3097,48.601,45.0063,45.204,49.0078,45.322],[-79.62479999999999,-73.5673,-79.62479999999999,-73.74079999999999,-78.9019,-122.7579,-83.0364,-122.7579,-79.0742,-83.0307,-79.066,-82.405,-114.0194,-73.34399999999999,-83.0364,-73.366,-74.7306,-122.827,-75.931,-84.34690000000001,-122.484,-123.426,-73.367,-82.405,-113.58,-93.413,-72.09139999999999,-67.271,-97.22410000000001,-75.669],[22.82322625,17.46442625,16.976425,16.43329875,10.9187,10.71926375,9.12447875,8.93841375,8.576454999999999,8.0854225,7.85514,7.73954375,6.98851625,5.1405575,4.04811875,4.0220075,3.71368875,3.43324875,3.2804775,2.94982875,2.67848375,2.6432275,2.5867425,2.07950375,1.89198875,1.78433125,1.6801775,1.67842875,1.5174675,1.50983],null,null,{"interactive":true,"className":"","stroke":true,"color":"white","weight":1,"opacity":0.5,"fill":true,"fillColor":["#67000D","#CB191D","#D22020","#D92823","#FC7D5D","#FC8060","#FC9879","#FD9B7C","#FDA082","#FDA88B","#FDAC8F","#FDAD91","#FCB99E","#FED3C0","#FEE1D3","#FEE1D4","#FEE4D7","#FEE6DA","#FFE7DC","#FFEAE0","#FFECE3","#FFECE3","#FFECE4","#FFF0EA","#FFF2EC","#FFF3ED","#FFF4EE","#FFF4EE","#FFF5F0","#FFF5F0"],"fillOpacity":0.8},null,null,null,null,["4971 - Pearson International Airport - Terminal 1 (4971): 18,258,581","8212 - VIA - Traffic (8212): 13,971,541","4974 - Pearson International Airport - Terminal 3 (4974): 13,581,140","3961 - Pierre Elliott Trudeau International Airport - Traffic (3961): 13,146,639","4101 - Fort Erie - Traffic (4101): 8,734,960","8135 - Douglas Passenger (8135): 8,575,411","4531 - Ambassador Bridge - Travellers (4531): 7,299,583","8132 - Pacific Highway - Traffic (8132): 7,150,731","4272 - Rainbow Bridge (4272): 6,861,164","4521 - Windsor Tunnel - Travellers (4521): 6,468,338","4273 - Queenston Bridge - Traffic (4273): 6,284,112","4401 - Blue Water Bridge - Travellers (4401): 6,191,635","7011 - Calgary Int'l Airport - Traffic (7011): 5,590,813","3513 - Lacolle Route 15 - Traffic (3513): 4,112,446","4530 - Ambassador Bridge - Commercial (4530): 3,238,495","8173 - Huntingdon - Traffic (8173): 3,217,606","4090 - Cornwall - Traffic (4090): 2,970,951","8150 - Boundary Bay (8150): 2,746,599","4560 - Lansdowne - Traffic (4560): 2,624,382","4410 - Sault Ste. Marie - Traffic (4410): 2,359,863","8174 - Aldergrove Traffic (8174): 2,142,787","8111 - Victoria Airport (8111): 2,114,582","3281 - St.-Armand - Traffic (3281): 2,069,394","4403 - Blue Water Bridge - Commercial (4403): 1,663,603","7023 - Edmonton International Airport Traffic Operations (7023): 1,513,591","4780 - Fort Frances - Traffic (4780): 1,427,465","3141 - Stanstead Route 55 (Rock Island) (3141): 1,344,142","2110 - St. Stephen - Traffic (2110): 1,342,743","5021 - Emerson West Lynne - Traffic (5021): 1,213,974","4312 - Ottawa Int'l Airport - Traffic (4312): 1,207,864"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#FFF5F0 , #FFEDE5 4.64576357698037%, #FED5C3 16.3754755885046%, #FDB195 28.1051876000288%, #FC8B6A 39.834899611553%, #FA6546 51.5646116230772%, #ED392B 63.2943236346014%, #CB181D 75.0240356461256%, #A71015 86.7537476576498%, #6E010E 98.483459669174%, #67000D "],"labels":["2,000,000","4,000,000","6,000,000","8,000,000","10,000,000","12,000,000","14,000,000","16,000,000","18,000,000"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Total Crossings","extra":{"p_1":0.0464576357698037,"p_n":0.9848345966917403},"layerId":null,"className":"info legend","group":null}]}],"setView":[[55,-95],4,[]],"limits":{"lat":[42.309,53.3097],"lng":[-123.426,-67.271]}},"evals":[],"jsHooks":[]}</script>
+<p class="caption">
+Figure 4: Regional concentration of border-crossing volume at the top-30
+busiest ports
+</p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary:</h1>
+<p>The map titled “Regional Concentration (Canada)” shows the total
+border-crossing volumes at the top 30 busiest Canadian ports of entry.
+Each circle represents a port, and its size and color intensity indicate
+the total number of crossings. The data reveals a strong concentration
+of crossings in southern Ontario, particularly near the U.S. border
+around the Great Lakes, with far fewer high-volume ports in western and
+eastern Canada. The busiest port is Pearson International Airport
+(Toronto) with over 18 million crossings, followed by Trudeau
+International Airport (Montreal) with over 13 million. So, it also
+aligns with the result shown in Figure 3 that air will be the second
+highest crossing volumes in Canada.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
